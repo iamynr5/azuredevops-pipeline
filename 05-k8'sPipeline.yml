@@ -21,7 +21,7 @@ steps:
       ensureBackend: true
       backendAzureRmResourceGroupName: 'terraform-rg-backend'
       backendAzureRmResourceGroupLocation: 'westeurope'
-      backendAzureRmStorageAccountName: 'storageaccountasdfjaklfdjalkwjflksj123'
-      backendAzureRmContainerName: 'storageaccountasdfjaklfdjalkwjflksj123container'
+      backendAzureRmStorageAccountName: 'storageaccountasdfjaklfdjalkwjflksj1234'
+      backendAzureRmContainerName: 'storageaccountasdfjaklfdjalkwjflksj1234container'
       backendAzureRmKey: 'k8s-dev.tfstate'
       allowTelemetryCollection: true
