@@ -1,0 +1,29 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - script: echo k8
+    displayName: 'Johncena'
+
+- task: DownloadSecureFile@1
+  name: publickey
+  inputs:
+    secureFile: 'azure_rsa.pub'
+
+- task: TerraformCLI@0
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes/'
+    commandOptions: '-var client_id=$(clinet_id) -var client-secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
+    backendType: 'azurerm'
+    backendServiceArm: 'Free Trial(1)(f17664be-6c00-4a53-98ba-ba47d6a803ff)'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'terrfaorm-rg-name'
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    backendAzureRmStorageAccountName: 'storageaccount134234fdafdjl'
+    backendAzureRmContainerName: 'storageaccount134234fdafdjlcontianer'
+    backendAzureRmKey: 'k8-dev.tfstate'
+    allowTelemetryCollection: true

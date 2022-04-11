@@ -1,0 +1,43 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Build
+  jobs:
+  - job: FirstJob
+    steps:
+    - bash: echo Build FirstJob
+    - bash: echo $(PipelineLevelVariable)
+  - job: second
+    steps:
+    - bash: echo Build secondJob
+- stage: devDeploy
+  variables:
+    environment: DEV
+  dependsOn: Build
+  jobs:
+  - job: devDeployjob
+    steps:
+    - bash: echo $(environment)DeployJob
+- stage: qaDeploy
+  variables:
+    environment: qa
+  dependsOn: Build
+  jobs:
+  - job: qaDeployjob
+    steps:
+    - bash: echo $(environment)DeployJob
+- stage: proddeploy
+  variables:
+    environment: PROD
+  dependsOn:
+  - devDeploy
+  - qaDeploy
+  jobs:
+  - job: proddeployjob
+    steps:
+    - bash: echo $(environment)deployJob
+
